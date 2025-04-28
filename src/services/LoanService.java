@@ -1,7 +1,8 @@
 package services;
-import classes.Book;
+import classes.books.Book;
 import classes.LoanRecord;
 import classes.User;
+import classes.books.Loanable;
 import repositories.books.BookRepository;
 import repositories.loans.LoanRepository;
 
@@ -19,8 +20,8 @@ public class LoanService {
     }
 
     public boolean borrowBook(User user, Long bookId) {
-        Book book = bookRepository.findById(bookId);
-        if (book != null && book.isAvailable()) {
+        Loanable book = bookRepository.findById(bookId);
+        if (book != null && book.isAvailable() && book.canBeBorrowedBy(user)) {
             book.setAvailable(false);
             bookRepository.save(book);
 
@@ -39,7 +40,7 @@ public class LoanService {
                 loan.markAsReturned();
                 loanRepository.save(loan);
 
-                Book book = loan.getBook();
+                Loanable book = loan.getBook();
                 book.setAvailable(true);
                 bookRepository.save(book);
 

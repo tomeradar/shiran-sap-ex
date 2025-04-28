@@ -1,15 +1,18 @@
 package classes;
 
+import classes.books.Book;
+import classes.books.Loanable;
+
 import java.time.LocalDate;
 
 public class LoanRecord {
     private Long id;
     private User user;
-    private Book book;
+    private Loanable book;
     private LocalDate borrowDate;
     private LocalDate returnDate; // null אם עדיין לא הוחזר
 
-    public LoanRecord(Long id, User user, Book book, LocalDate borrowDate) {
+    public LoanRecord(Long id, User user, Loanable book, LocalDate borrowDate) {
         this.id = id;
         this.user = user;
         this.book = book;
@@ -27,7 +30,7 @@ public class LoanRecord {
     // Getters
     public Long getId() { return id; }
     public User getUser() { return user; }
-    public Book getBook() { return book; }
+    public Loanable getBook() { return book; }
     public LocalDate getBorrowDate() { return borrowDate; }
     public LocalDate getReturnDate() { return returnDate; }
 

@@ -1,6 +1,8 @@
-package classes;
+package classes.books;
 
-public class Book {
+import classes.User;
+
+public class Book implements Loanable {
     private Long id;
     private String title;
     private boolean available = true;
@@ -11,8 +13,16 @@ public class Book {
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
     public String getTitle() { return title; }
+
+    @Override
+    public Long getId() { return id; }
+    @Override
     public boolean isAvailable() { return available; }
+    @Override
     public void setAvailable(boolean available) { this.available = available; }
+    @Override
+    public boolean canBeBorrowedBy(User user) {
+        return true;
+    }
 }
