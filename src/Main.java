@@ -28,9 +28,9 @@ public class Main {
         RareBook rareBook = new RareBook(102L, "Clean Code");
         RegularBook regularBook = new RegularBook(103L, "Clean Code");
 
-        bookRepository.save(digitalBook);
-        bookRepository.save(rareBook);
-        bookRepository.save(regularBook);
+        bookRepository.addBook(digitalBook);
+        bookRepository.addBook(rareBook);
+        bookRepository.addBook(regularBook);
 
         // השאלת ספר
         System.out.println("UserType.REGULAR Borrowing digitalBook: " + loanService.borrowBook(user1, digitalBook.getId())); // false
@@ -48,6 +48,7 @@ public class Main {
         System.out.println("UserType.LIBRARIAN Returning book: " + loanService.returnBook(user2, rareBook.getId())); // true
         System.out.println("UserType.LIBRARIAN Returning book: " + loanService.returnBook(user2, regularBook.getId())); // true
 
+        bookRepository.setAllAvailability(false);
         // השאלת ספר
         System.out.println("UserType.VIP Borrowing digitalBook: " + loanService.borrowBook(user3, digitalBook.getId())); // false
         System.out.println("UserType.VIP Borrowing rareBook: " + loanService.borrowBook(user3, rareBook.getId())); // true

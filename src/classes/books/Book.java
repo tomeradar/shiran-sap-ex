@@ -6,7 +6,7 @@ public class Book implements Loanable {
     private Long id;
     private String title;
     private boolean available = true;
-
+    private int version;
     public Book(Long id, String title) {
         this.id = id;
         this.title = title;
@@ -18,9 +18,17 @@ public class Book implements Loanable {
     @Override
     public Long getId() { return id; }
     @Override
-    public boolean isAvailable() { return available; }
+    public boolean isAvailable(int globalVersion,boolean globalAvailability) {
+        if (version < globalVersion) {
+            return globalAvailability;
+        }
+        return available;
+    }
     @Override
-    public void setAvailable(boolean available) { this.available = available; }
+    public void setAvailable(boolean available, int currentGlobalVersion) {
+        this.available = available;
+        this.version = currentGlobalVersion;
+    }
     @Override
     public boolean canBeBorrowedBy(User user) {
         return true;

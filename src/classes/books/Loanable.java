@@ -5,6 +5,7 @@ import classes.User;
 public interface Loanable {
     boolean canBeBorrowedBy(User user);
     Long getId();
-    boolean isAvailable();
-    void setAvailable(boolean available);
+    boolean isAvailable(int currentGlobalVersion, boolean globalAvailability);
+
+    void setAvailable(boolean available, int currentGlobalVersion);
 }

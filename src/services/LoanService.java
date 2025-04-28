@@ -20,10 +20,9 @@ public class LoanService {
     }
 
     public boolean borrowBook(User user, Long bookId) {
-        Loanable book = bookRepository.findById(bookId);
-        if (book != null && book.isAvailable() && book.canBeBorrowedBy(user)) {
-            book.setAvailable(false);
-            bookRepository.save(book);
+        Loanable book = bookRepository.getBookById(bookId);
+        if (book != null && bookRepository.isBookAvailable(bookId) && book.canBeBorrowedBy(user)) {
+            bookRepository.setBookAvailability(bookId,false);
 
             LoanRecord loanRecord = new LoanRecord(++loanIdSequence, user, book, LocalDate.now());
             loanRepository.save(loanRecord);
@@ -41,9 +40,7 @@ public class LoanService {
                 loanRepository.save(loan);
 
                 Loanable book = loan.getBook();
-                book.setAvailable(true);
-                bookRepository.save(book);
-
+                bookRepository.setBookAvailability(bookId,true);
                 return true;
             }
         }
